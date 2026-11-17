@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Birthday, Mom</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#ffe6ee;--bg2:#ffc9dc;--ink:#4a1942;--soft:#7a4a72;--rose:#e8336d;--rose2:#ff7aa5;--gold:#ffb703;--card:#fff7fa;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#2b1030;--bg2:#4a1942;--ink:#ffe6ee;--soft:#e7bcd6;--card:#3a1840;color-scheme:dark}}
+:root[data-theme="dark"]{--bg1:#2b1030;--bg2:#4a1942;--ink:#ffe6ee;--soft:#e7bcd6;--card:#3a1840;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;font-family:Fredoka,"Trebuchet MS",sans-serif;color:var(--ink);background:linear-gradient(160deg,var(--bg1),var(--bg2));background-attachment:fixed;overflow-x:hidden}
+.script{font-family:"Dancing Script","Brush Script MT",cursive}
+.heart{clip-path:url(#hc)}
+/* gate */
+#gate{position:fixed;inset:0;z-index:20;display:grid;place-content:center;justify-items:center;gap:18px;text-align:center;background:linear-gradient(160deg,var(--bg1),var(--bg2));transition:opacity .8s,visibility .8s}
+#gate.gone{opacity:0;visibility:hidden}
+#gate p{margin:0;font-size:1.5rem;color:var(--soft)}
+#openBtn{width:min(70vw,300px);aspect-ratio:1;border:0;cursor:pointer;color:#fff;font:600 2.2rem Fredoka,sans-serif;padding-bottom:12%;background:radial-gradient(circle at 35% 28%,#ff9dbd,var(--rose) 55%,#b3124a);animation:beat 1.4s infinite;filter:drop-shadow(0 12px 18px rgba(179,18,74,.4))}
+#openBtn:focus-visible,.hc:focus-visible,.close:focus-visible{outline:4px solid var(--gold);outline-offset:4px}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.1)}30%{transform:scale(1)}45%{transform:scale(1.07)}}
+/* main */
+main{max-width:980px;margin:0 auto;padding:32px 20px 64px}
+.hero{text-align:center}
+.hero h1{font-size:clamp(2.6rem,9vw,5rem);margin:8px 0 0;line-height:1.05;color:var(--rose)}
+.hero .sub{font-size:1.2rem;color:var(--soft);max-width:34ch;margin:10px auto 0}
+.scene{width:min(100%,520px);margin:10px auto 0;display:block;filter:drop-shadow(0 18px 20px rgba(74,25,66,.25))}
+.date{display:inline-flex;gap:10px;align-items:center;margin-top:14px;padding:10px 22px;border-radius:99px;background:var(--card);box-shadow:0 6px 18px rgba(74,25,66,.15);font-weight:600;font-size:1.2rem}
+.count{margin-top:10px;color:var(--soft)}
+.wishes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:36px 0 0;padding:0;list-style:none}
+.wishes li{background:var(--card);padding:18px;border-radius:22px;font-size:1.1rem;text-align:center;box-shadow:0 6px 16px rgba(74,25,66,.12)}
+h2{text-align:center;font-size:2.4rem;margin:56px 0 4px;color:var(--rose)}
+.hint{text-align:center;color:var(--soft);margin:0 0 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:6px;justify-items:center}
+.hc{width:210px;aspect-ratio:1;border:0;cursor:pointer;color:#fff;font:600 1.5rem Fredoka,sans-serif;padding-bottom:14%;background:radial-gradient(circle at 35% 28%,var(--c1),var(--c2));transition:transform .25s}
+.hc:hover{transform:scale(1.07) rotate(-2deg)}
+.hc small{display:block;font-size:.8rem;font-weight:400;opacity:.9}
+.hc.done{filter:saturate(.6) brightness(1.08)}
+/* letter */
+#modal{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:20px;background:rgba(43,16,48,.6);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+#modal.on{opacity:1;visibility:visible}
+.letter{position:relative;width:min(100%,460px);background:var(--card);border-radius:26px;padding:34px 28px 28px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.35);transform:scale(.85) translateY(30px);transition:transform .35s}
+#modal.on .letter{transform:none}
+.letter h3{margin:0 0 10px;font-size:2rem;color:var(--rose)}
+.letter p{margin:0;font-size:1.15rem;line-height:1.6}
+.close{margin-top:20px;border:0;border-radius:99px;padding:10px 26px;background:var(--rose);color:#fff;font:500 1.05rem Fredoka,sans-serif;cursor:pointer}
+footer{text-align:center;margin-top:56px;font-size:1.6rem;color:var(--rose)}
+.fl{position:fixed;pointer-events:none;z-index:40;animation:up 2.4s ease-out forwards}
+@keyframes up{from{transform:translateY(0) scale(.6);opacity:1}to{transform:translateY(-90vh) scale(1.4);opacity:0}}
+main{position:relative;z-index:1}
+#sky{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.bl{position:absolute;bottom:-160px;border-radius:50% 50% 50% 50%/58% 58% 42% 42%;opacity:.85;animation:rise var(--t) linear var(--d) infinite;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.85),rgba(255,255,255,0) 32%),var(--c)}
+.bl::after{content:"";position:absolute;left:50%;top:100%;width:2px;height:60px;background:rgba(122,74,114,.55)}
+@keyframes rise{0%{transform:translate(0,0) rotate(-5deg)}50%{transform:translate(var(--dx),-70vh) rotate(5deg)}100%{transform:translate(0,-135vh) rotate(-5deg)}}
+.scene{animation:float 4s ease-in-out infinite}
+.date{animation:wig 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes wig{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+#music{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;z-index:25;width:48px;height:48px;border:0;border-radius:50%;background:var(--card);font-size:1.4rem;cursor:pointer;box-shadow:0 6px 16px rgba(74,25,66,.25)}
+#music:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){#openBtn,.scene,.date{animation:none}#sky,.fl{display:none}*{transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="hc" clipPathUnits="objectBoundingBox"><path d="M0.5,0.96 C0.1,0.66 0,0.46 0,0.28 C0,0.1 0.14,0 0.28,0 C0.4,0 0.47,0.06 0.5,0.14 C0.53,0.06 0.6,0 0.72,0 C0.86,0 1,0.1 1,0.28 C1,0.46 0.9,0.66 0.5,0.96Z"/></clipPath></defs></svg>
+<audio id="song" src="C:\Users\Options\OneDrive\Desktop\Third year\عيد ميلاد ماما\song.mp3.mp3"loop></audio>
+<div id="sky" aria-hidden="true"></div>
+<button id="music" type="button" aria-label="Turn music on or off" hidden>🎵</button>
+<div id="gate">
+  <p class="script" style="font-size:2.2rem">A little surprise for you…</p>
+  <button id="openBtn" class="heart" type="button">Open</button>
+</div>
+
+<main>
+  <section class="hero">
+    <svg class="scene" viewBox="0 0 440 330" role="img" aria-label="A cartoon mom and her daughter hugging under birthday balloons">
+      <defs>
+        <radialGradient id="skin" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffe2cc"/><stop offset=".6" stop-color="#f6b995"/><stop offset="1" stop-color="#d98f6b"/></radialGradient>
+        <radialGradient id="shade" cx=".3" cy=".25" r=".9"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></radialGradient>
+        <radialGradient id="ball" cx=".3" cy=".3" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".8"/><stop offset=".35" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".25"/></radialGradient>
+        <g id="ch">
+          <ellipse cx="0" cy="-58" rx="50" ry="52" fill="var(--hair)"/>
+          <path d="M-46,100 Q-52,12 -22,2 L22,2 Q52,12 46,100Z" fill="var(--dress)"/>
+          <path d="M-46,100 Q-52,12 -22,2 L22,2 Q52,12 46,100Z" fill="url(#shade)"/>
+          <rect x="-9" y="-24" width="18" height="30" rx="8" fill="#e9a67f"/>
+          <circle cx="0" cy="-58" r="42" fill="url(#skin)"/>
+          <circle cx="-25" cy="-47" r="8" fill="#ff7aa5" opacity=".45"/><circle cx="25" cy="-47" r="8" fill="#ff7aa5" opacity=".45"/>
+          <ellipse cx="-15" cy="-60" rx="6.5" ry="9" fill="#2b1030"/><ellipse cx="15" cy="-60" rx="6.5" ry="9" fill="#2b1030"/>
+          <circle cx="-13" cy="-64" r="2.6" fill="#fff"/><circle cx="17" cy="-64" r="2.6" fill="#fff"/>
+          <path d="M-13,-42 Q0,-28 13,-42" fill="#fff" stroke="#b3124a" stroke-width="3" stroke-linecap="round"/>
+          <path d="M-44,-60 Q-34,-112 2,-104 Q40,-106 44,-60 Q24,-86 -2,-82 Q-28,-80 -44,-60Z" fill="var(--hair)"/>
+          <path d="M-30,-96 Q-10,-108 12,-100" stroke="#fff" stroke-opacity=".35" stroke-width="5" fill="none" stroke-linecap="round"/>
+        </g>
+      </defs>
+      <!-- balloons -->
+      <g stroke="#7a4a72" stroke-width="2" fill="none"><path d="M70,110 Q80,170 130,215"/><path d="M370,100 Q360,170 310,225"/><path d="M220,40 Q215,110 215,170"/></g>
+      <g><ellipse cx="70" cy="80" rx="30" ry="36" fill="#ff5d8f"/><ellipse cx="70" cy="80" rx="30" ry="36" fill="url(#ball)"/>
+      <ellipse cx="370" cy="70" rx="30" ry="36" fill="#ffb703"/><ellipse cx="370" cy="70" rx="30" ry="36" fill="url(#ball)"/>
+      <ellipse cx="220" cy="22" rx="27" ry="32" fill="#7bd0ff"/><ellipse cx="220" cy="22" rx="27" ry="32" fill="url(#ball)"/></g>
+      <!-- characters -->
+      <ellipse cx="220" cy="312" rx="140" ry="12" fill="#000" opacity=".15"/>
+      <g style="--hair:#5a2d1f;--dress:#e8336d" transform="translate(155,185) scale(1.05)">
+        <use href="#ch"/>
+        <path d="M-50,-60 Q-62,0 -44,40 L-34,10Z M50,-60 Q62,0 44,40 L34,10Z" fill="#5a2d1f"/>
+      </g>
+      <g style="--hair:#2b1030;--dress:#7bb6ff" transform="translate(272,225) scale(.78)">
+        <use href="#ch"/>
+        <circle cx="-42" cy="-98" r="16" fill="#2b1030"/><circle cx="42" cy="-98" r="16" fill="#2b1030"/>
+        <circle cx="-42" cy="-98" r="16" fill="url(#ball)"/><circle cx="42" cy="-98" r="16" fill="url(#ball)"/>
+        <circle cx="-42" cy="-98" r="6" fill="#ff5d8f"/><circle cx="42" cy="-98" r="6" fill="#ff5d8f"/>
+      </g>
+      <!-- hug arms -->
+      <path d="M190,215 Q235,250 285,225" stroke="#f6b995" stroke-width="16" stroke-linecap="round" fill="none"/>
+      <path d="M190,215 Q235,250 285,225" stroke="#e8336d" stroke-width="16" stroke-linecap="round" fill="none" stroke-dasharray="22 400" opacity=".0"/>
+      <text x="220" y="300" text-anchor="middle" font-size="26">💖</text>
+    </svg>
+    <p class="script" style="font-size:1.8rem;margin:10px 0 0;color:var(--soft)">Happy Birthday My Favourite ساحرة شريرة</p>
+    <h1 class="script">Happy Birthday, Mom!</h1>
+    <p class="sub">To the woman who makes every day feel like a celebration.</p>
+    <div class="date"><span aria-hidden="true">🎂</span> 27 November</div>
+    <div class="count" id="count"></div>
+  </section>
+
+  <ul class="wishes">
+    <li>Wishing you a day full of love, laughter and cake 🍰</li>
+    <li>May this new year bring you health, peace and endless joy 🌷</li>
+    <li>You are the heart of our family. Happy Birthday! 💕</li>
+  </ul>
+
+  <h2 class="script">Messages from my heart</h2>
+  <p class="hint">Tap a heart to open it</p>
+  <div class="grid" id="grid"></div>
+
+  <footer class="script">With all my love, always 💗</footer>
+  <footer class="script" style="font-size:1.8rem;margin:10px 0 0;color:var(--soft)">من ابنتك 
+    ميار
+  </footer>
+
+</main>
+
+<div id="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
+  <div class="letter"><h3 class="script" id="mt"></h3><p id="mp"></p><button class="close" id="close" type="button">Close</button></div>
+</div>
+
+<script>
+/* balloons */
+(function(){
+  var sky=document.getElementById("sky"),C=["#ff5d8f","#ffb703","#7bd0ff","#c7a6ff","#8fe3b5","#ff9a8a"];
+  for(var i=0;i<16;i++){
+    var b=document.createElement("div"),w=40+Math.random()*34;
+    b.className="bl";b.style.width=w+"px";b.style.height=(w*1.25)+"px";
+    b.style.left=(Math.random()*94)+"vw";
+    b.style.setProperty("--c",C[i%C.length]);
+    b.style.setProperty("--t",(11+Math.random()*9)+"s");
+    b.style.setProperty("--d",(-Math.random()*18)+"s");
+    b.style.setProperty("--dx",(Math.random()*80-40)+"px");
+    sky.appendChild(b);
+  }
+})();
+/* music: a soft synthesized Happy Birthday melody */
+var ac=null,loopT=null,musicOn=false;
+var SONG=[[392,.75],[392,.25],[440,1],[392,1],[523.25,1],[493.88,2],[392,.75],[392,.25],[440,1],[392,1],[587.33,1],[523.25,2],[392,.75],[392,.25],[783.99,1],[659.25,1],[523.25,1],[493.88,1],[440,2],[698.46,.75],[698.46,.25],[659.25,1],[523.25,1],[587.33,1],[523.25,2]];
+function playLoop(){
+  if(!ac)return;
+  var beat=.55,t=ac.currentTime+.1;
+  SONG.forEach(function(n){
+    var o=ac.createOscillator(),g=ac.createGain(),d=n[1]*beat;
+    o.type="triangle";o.frequency.value=n[0];
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.18,t+.03);g.gain.exponentialRampToValueAtTime(.001,t+d*.95);
+    o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+d);t+=d;
+  });
+  loopT=setTimeout(playLoop,(t-ac.currentTime+1.2)*1000);
+}
+function startMusic(){
+  try{
+    if(musicOn)return;
+    ac=new (window.AudioContext||window.webkitAudioContext)();
+    musicOn=true;playLoop();
+    document.getElementById("music").textContent="🎵";
+  }catch(e){}
+}
+function stopMusic(){
+  try{clearTimeout(loopT);if(ac)ac.close();}catch(e){}
+  ac=null;musicOn=false;document.getElementById("music").textContent="🔇";
+}
+document.getElementById("music").onclick=function(){musicOn?stopMusic():startMusic()};
+var MSGS=[
+ ["Thank you","Thank you for every sacrifice, every sleepless night and every quiet prayer. Everything good in me started with you."],
+ ["Your smile","Your smile can fix the hardest day. I hope today gives you a thousand reasons to smile."],
+ ["My best friend","You listen when no one else does and you believe in me when I doubt myself. I’m so lucky you’re my mom."],
+ ["Your hugs","Home is wherever you are. Your hugs are the safest place in the whole world."],
+ ["My wish","I wish you health, happiness and everything your kind heart has given to others, coming back to you tenfold."],
+ ["I love you","Happy Birthday, Mom. I love you more than words, more than cake, and more than all the stars in the sky."]
+];
+var COL=[["#ff9dbd","#e8336d"],["#ffc46b","#f08a00"],["#c7a6ff","#8a4fe0"],["#7bd0ff","#2c8fd6"],["#8fe3b5","#2aa56a"],["#ff9a8a","#d9372a"]];
+var grid=document.getElementById("grid"),modal=document.getElementById("modal"),last=null;
+MSGS.forEach(function(m,i){
+  var b=document.createElement("button");b.type="button";b.className="hc heart";
+  b.style.setProperty("--c1",COL[i][0]);b.style.setProperty("--c2",COL[i][1]);
+  b.innerHTML="Open<small>"+m[0]+"</small>";
+  b.setAttribute("aria-label","Open message: "+m[0]);
+  b.onclick=function(){last=b;b.classList.add("done");document.getElementById("mt").textContent=m[0];document.getElementById("mp").textContent=m[1];modal.classList.add("on");document.getElementById("close").focus();burst(10)};
+  grid.appendChild(b);
+});
+function closeM(){modal.classList.remove("on");if(last)last.focus()}
+document.getElementById("close").onclick=closeM;
+modal.onclick=function(e){if(e.target===modal)closeM()};
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeM()});
+function burst(n){
+  var E=["💖","💕","🌸","🎈","✨"];
+  for(var i=0;i<n;i++){var s=document.createElement("span");s.className="fl";s.textContent=E[i%E.length];
+    s.style.left=(5+Math.random()*90)+"vw";s.style.bottom="6vh";s.style.fontSize=(18+Math.random()*20)+"px";s.style.animationDelay=(Math.random()*.6)+"s";
+    document.body.appendChild(s);setTimeout(function(x){x.remove()},3200,s)}
+}
+document.getElementById("openBtn").onclick=function(){
+  document.getElementById("gate").classList.add("gone");burst(26);window.scrollTo(0,0);
+document.getElementById("song").play();};
+(function(){
+  var el=document.getElementById("count"),now=new Date(),t=new Date(now.getFullYear(),10,27);
+  var today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  if(today>t)t=new Date(now.getFullYear()+1,10,27);
+  var d=Math.round((t-today)/864e5);
+  el.textContent=d===0?"Today is your special day! 🎉":d+(d===1?" day":" days")+" until your big day";
+})();
+</script>
+</body>
+</html>
